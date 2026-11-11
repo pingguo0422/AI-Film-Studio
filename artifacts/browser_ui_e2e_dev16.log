@@ -1,0 +1,7 @@
+BROWSER UI E2E: PASS
+- Chromium loaded actual control-center HTML, CSS and JavaScript
+- Browser connected and loaded a mocked project inbox
+- UI submitted approval with the exact create_task payload
+- UI required a second explicit confirmation before execution
+- UI rendered execution result and activity timeline
+- API persistence and authorization are tested separately by pytest

@@ -1,0 +1,18 @@
+AFS Foundation 1.5 dev.10 build verification
+============================================
+pytest -q: 139 passed, 10 skipped
+python -m compileall -q backend integrations scripts: PASS
+node --check frontend/control-center/assets/app.js: PASS
+SQLite fresh upgrade to head: PASS
+SQLite alembic check: PASS (No new upgrade operations detected)
+SQLite downgrade -1 then upgrade head: PASS
+PostgreSQL offline alembic upgrade head --sql: PASS (offline SQL generation only; no live PostgreSQL)
+FastAPI TestClient /health: 200, version 1.5.0-dev.10
+FastAPI TestClient /control-center/: 200
+FastAPI TestClient /openapi.json: 200
+GET action execution readback: covered by API test
+Action execution timeline event: covered by timeline API test
+ZIP integrity: PASS (verified after packaging)
+Browser E2E: NOT RUN
+Live PostgreSQL tests: NOT RUN
+Human acceptance: NOT PERFORMED

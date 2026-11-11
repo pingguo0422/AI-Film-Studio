@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>AFS · 总导演控制中心</title>
+  <link rel="stylesheet" href="/control-center/assets/app.css">
+  <script defer src="/control-center/assets/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/control-center/" aria-label="AFS 总导演控制中心首页"><span class="brand-mark">AFS</span><span>AI FILM STUDIO <small>EXECUTIVE DIRECTOR</small></span></a>
+    <div class="top-actions"><span id="connection-state" class="connection">未连接</span><button id="logout-button" class="button button-quiet" type="button">断开连接</button></div>
+  </header>
+  <main class="shell">
+    <section class="intro">
+      <div><p class="eyebrow">PROJECT GOVERNANCE / HUMAN-IN-THE-LOOP</p><h1>总导演控制中心</h1><p class="subhead">审阅 AI 建议，理解证据与影响，再由授权人员作出决定。</p></div>
+      <div class="principle"><span class="principle-dot"></span><span>人工决定与任务执行严格分离</span></div>
+    </section>
+
+    <section id="connection-panel" class="panel connection-panel" aria-labelledby="connect-title">
+      <div class="panel-heading"><div><p class="eyebrow">SECURE ACCESS</p><h2 id="connect-title">连接项目工作区</h2></div><span class="step">01 / ACCESS</span></div>
+      <form id="connect-form" class="connect-grid">
+        <label>API Bearer Token<input id="api-token" type="password" autocomplete="off" spellcheck="false" placeholder="afs_pat_…" required></label>
+        <label>Project ID<input id="project-id" type="text" autocomplete="off" spellcheck="false" placeholder="项目 UUID" required></label>
+        <button class="button button-primary connect-submit" type="submit">验证并连接</button>
+      </form>
+      <p class="hint">凭证仅保存在当前浏览器标签页的会话存储中；关闭标签页后清除。请勿在共享设备上使用。</p>
+      <p id="connect-error" class="error" role="alert" hidden></p>
+    </section>
+
+    <section id="workspace" class="workspace" hidden>
+      <div class="workspace-head"><div><p class="eyebrow">DECISION GOVERNANCE</p><h2>决策收件箱</h2><p id="project-caption" class="muted"></p></div><div class="filters"><label for="status-filter">事项状态</label><select id="status-filter"><option value="open">待处理</option><option value="approved">已批准</option><option value="rejected">已拒绝</option><option value="deferred">已延期</option><option value="closed">已关闭</option><option value="all">全部事项</option></select><button id="refresh-button" class="button button-secondary" type="button">刷新</button></div></div>
+      <section class="panel timeline-panel" aria-label="Agent 活动时间线"><div class="list-heading"><span>Agent 活动时间线</span><span class="muted">只读 · 最近活动</span></div><div id="activity-timeline" class="timeline-list"><div class="empty-state">暂无活动记录。</div></div></section>
+      <div class="workspace-grid">
+        <section class="panel inbox-panel" aria-label="决策事项列表"><div class="list-heading"><span>建议事项</span><span id="inbox-count" class="muted">0 项</span></div><div id="inbox-list" class="inbox-list"><div class="empty-state">连接项目后加载事项。</div></div><div class="pagination"><button id="previous-page" class="button button-quiet" type="button" disabled>上一页</button><span id="page-caption" class="muted">第 1 页</span><button id="next-page" class="button button-quiet" type="button" disabled>下一页</button></div></section>
+        <section id="detail-panel" class="panel detail-panel" aria-live="polite"><div class="empty-detail"><div class="empty-icon">↗</div><h3>选择一项决策建议</h3><p>查看建议摘要、证据引用、来源校验信息和影响范围。</p></div></section>
+      </div>
+      <p id="workspace-error" class="error" role="alert" hidden></p>
+    </section>
+    <footer><span>AFS FOUNDATION 1.5 · CONTROL CENTER</span><span>HUMAN AUTHORITY · AUDITABLE DECISIONS</span></footer>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

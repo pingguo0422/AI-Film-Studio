@@ -1,0 +1,17 @@
+AFS Foundation 1.5 dev.14 build verification
+
+pytest -q: 141 passed, 12 skipped
+Chromium browser UI E2E (mock API): PASS
+python -m compileall -q backend integrations scripts: PASS
+node --check frontend/control-center/assets/app.js: PASS
+bash -n scripts/run_postgres_integration.sh: PASS
+python -m py_compile scripts/run_control_center_browser_e2e.py: PASS
+SQLite fresh migration: PASS
+SQLite alembic check: PASS
+SQLite downgrade/re-upgrade: PASS
+PostgreSQL dialect offline SQL generation: PASS (not live DB)
+HTTP smoke /health, /control-center/, /openapi.json: PASS
+Live PostgreSQL 16: NOT EXECUTED
+Browser-to-live-API E2E: NOT EXECUTED
+Human acceptance: NOT ACCEPTED
+Production readiness: NO

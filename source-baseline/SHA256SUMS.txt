@@ -1,0 +1,4 @@
+a779aa5ceede0debcf9b0d056190c0d3271d7d944894b0466b534fa9fd487d95  ./01_AFS_Audit/AFS_Foundation_Integration_1.0_Audit_01.md
+c47c5dfa6d09ad96ac914acbcd38160f58b7f5e2e4647354f256b1fb09bcdc07  ./02_Footage_Mode_Reference/Footage-Mode-2.2-B.zip
+c131b18e4bd290d3eb5c6fa1faaaa1c6aed152461af2c5d2e57222f1bd448fb7  ./03_Manifest/STATUS.md
+ad1fc3b8002d7ffed9c7f398c272206772d7daa7a19d461281dc4513fa3281be  ./README.md

@@ -1,0 +1,26 @@
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001_core, Core projects, canonical entities, immutable versions and approval governance.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001_core, Core projects, canonical entities, immutable versions and approval governance.
+INFO  [alembic.runtime.migration] Running upgrade 0001_core -> 0002_dam, AFS-DAM objects, asset versions, provenance, processing jobs and QC.
+INFO  [alembic.runtime.migration] Running upgrade 0001_core -> 0002_dam, AFS-DAM objects, asset versions, provenance, processing jobs and QC.
+INFO  [alembic.runtime.migration] Running upgrade 0002_dam -> b626346c790e, agent runtime and orchestration
+INFO  [alembic.runtime.migration] Running upgrade 0002_dam -> b626346c790e, agent runtime and orchestration
+INFO  [alembic.runtime.migration] Running upgrade b626346c790e -> 8c58a10612ac, footage mode integration adapter
+INFO  [alembic.runtime.migration] Running upgrade b626346c790e -> 8c58a10612ac, footage mode integration adapter
+INFO  [alembic.runtime.migration] Running upgrade 8c58a10612ac -> 13a9c2e4f601, Agent runtime task leases, retries, cancellation and idempotent creation.
+INFO  [alembic.runtime.migration] Running upgrade 8c58a10612ac -> 13a9c2e4f601, Agent runtime task leases, retries, cancellation and idempotent creation.
+INFO  [alembic.runtime.migration] Running upgrade 13a9c2e4f601 -> 4d9c2a7e1f30, Worker registry, durable outbox claims/retries and task dead letters.
+INFO  [alembic.runtime.migration] Running upgrade 13a9c2e4f601 -> 4d9c2a7e1f30, Worker registry, durable outbox claims/retries and task dead letters.
+INFO  [alembic.runtime.migration] Running upgrade 4d9c2a7e1f30 -> 7f31b6c2a904, Fence stale worker process generations and support concurrent inbox inserts.
+INFO  [alembic.runtime.migration] Running upgrade 4d9c2a7e1f30 -> 7f31b6c2a904, Fence stale worker process generations and support concurrent inbox inserts.
+INFO  [alembic.runtime.migration] Running upgrade 7f31b6c2a904 -> 2c84a1d9e650, Persist orchestration step identity, task linkage and execution outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 7f31b6c2a904 -> 2c84a1d9e650, Persist orchestration step identity, task linkage and execution outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 2c84a1d9e650 -> 5e92c1a7d4b8, Require explicit human approval before orchestration plan materialization.
+INFO  [alembic.runtime.migration] Running upgrade 2c84a1d9e650 -> 5e92c1a7d4b8, Require explicit human approval before orchestration plan materialization.
+INFO  [alembic.runtime.migration] Running upgrade 5e92c1a7d4b8 -> 9c6e2a41b7d0, Add durable Agent quality evaluations and idempotent collaboration messages.
+INFO  [alembic.runtime.migration] Running upgrade 5e92c1a7d4b8 -> 9c6e2a41b7d0, Add durable Agent quality evaluations and idempotent collaboration messages.
+INFO  [alembic.runtime.migration] Running upgrade 9c6e2a41b7d0 -> a41d7c2e9b60, Persist Executive Director recommendations and human decisions.
+INFO  [alembic.runtime.migration] Running upgrade 9c6e2a41b7d0 -> a41d7c2e9b60, Persist Executive Director recommendations and human decisions.

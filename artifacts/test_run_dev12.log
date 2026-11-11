@@ -1,0 +1,17 @@
+........................................................................ [ 47%]
+.............................................ssssssssssss............... [ 95%]
+.......                                                                  [100%]
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_postgres_contract.py:57: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:70: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:83: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:99: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:116: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:128: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:155: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:184: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:202: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:253: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:283: AFS_TEST_POSTGRES_URL is not configured
+SKIPPED [1] tests/test_postgres_contract.py:337: AFS_TEST_POSTGRES_URL is not configured
+139 passed, 12 skipped in 14.69s

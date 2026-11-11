@@ -1,0 +1,6 @@
+Live Chromium E2E was attempted locally but could not start:
+- Playwright package is installed.
+- Chromium executable was not present in the environment.
+- `python -m playwright install chromium` failed because the browser CDN host could not be resolved (DNS/network restriction: EAI_AGAIN).
+- The live runner is syntax-checked and configured for CI, where Chromium installation is part of the workflow.
+Result: NOT EXECUTED locally; do not treat as a pass.

@@ -1,0 +1,5 @@
+Live browser-to-FastAPI smoke attempt (local SQLite disposable DB)
+Status: NOT EXECUTED to completion
+Browser: /usr/bin/chromium (selected via AFS_CHROMIUM_EXECUTABLE)
+Result: Chromium navigation to http://127.0.0.1:8765/control-center/ blocked by execution environment with net::ERR_BLOCKED_BY_ADMINISTRATOR.
+Interpretation: This is an environment network restriction, not a passing browser/API integration test. The live PostgreSQL + browser workflow must run in GitHub Actions.

@@ -1,0 +1,10 @@
+AFS Foundation 1.5 dev.11 build verification
+Date: 2026-11-11
+pytest: 139 passed, 11 skipped
+compileall: PASS
+node --check: PASS
+SQLite migration/drift/roundtrip: PASS
+PostgreSQL offline SQL generation: PASS (not live DB)
+PostgreSQL concurrency test: ADDED, NOT EXECUTED
+Browser E2E: NOT EXECUTED
+Production acceptance: NOT ACCEPTED

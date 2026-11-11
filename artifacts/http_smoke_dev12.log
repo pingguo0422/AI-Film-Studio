@@ -1,0 +1,4 @@
+/health 200
+/control-center/ 200
+/openapi.json 200
+health payload: {'status': 'ok', 'service': 'afs-foundation', 'version': '1.5.0-dev.12'}

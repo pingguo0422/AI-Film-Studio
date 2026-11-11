@@ -1,0 +1,6 @@
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 9c6e2a41b7d0 -> a41d7c2e9b60, Persist Executive Director recommendations and human decisions.
+INFO  [alembic.runtime.migration] Running upgrade 9c6e2a41b7d0 -> a41d7c2e9b60, Persist Executive Director recommendations and human decisions.

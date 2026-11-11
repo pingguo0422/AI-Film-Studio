@@ -1,0 +1,14 @@
+AFS Foundation 1.5 dev.12 build verification
+
+pytest -q -rs: PASS (see artifacts/test_run_dev12.log)
+Python compileall: PASS
+Node syntax check: PASS
+PostgreSQL runner shell syntax: PASS
+SQLite fresh migration: PASS
+SQLite alembic check: PASS
+SQLite downgrade one revision: PASS
+SQLite re-upgrade to head: PASS
+PostgreSQL offline SQL generation: PASS (1,208 lines; not live DB)
+HTTP smoke: PASS (health, control center, OpenAPI; see artifacts/http_smoke_dev12.log)
+Live PostgreSQL: NOT EXECUTED (no Docker/PostgreSQL service/URL available)
+Browser E2E: NOT EXECUTED

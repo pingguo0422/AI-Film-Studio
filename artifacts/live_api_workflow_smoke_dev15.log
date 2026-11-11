@@ -1,0 +1,10 @@
+Live FastAPI HTTP API workflow smoke (SQLite-backed integration DB): PASS
+- E2E seeder created disposable project, human principal, owner membership, token and open decision case.
+- Authenticated GET /v1/me: PASS
+- Authenticated GET decision inbox: PASS
+- POST human approval with exact create_task action snapshot: PASS
+- POST execute with idempotency key: PASS
+- GET persisted execution record: PASS
+- GET activity timeline containing action_execution event: PASS
+- Task and ActionExecution records persisted in SQLite.
+Limitation: this is not PostgreSQL and not a Chromium browser run.

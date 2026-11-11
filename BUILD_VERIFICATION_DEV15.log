@@ -1,0 +1,18 @@
+AFS Foundation 1.5 dev.15 local build verification
+
+pytest -q: 141 passed, 12 skipped
+python -m compileall -q backend integrations scripts: PASS
+node --check frontend/control-center/assets/app.js: PASS
+python -m py_compile browser/seeder scripts: PASS
+SQLite fresh migration: PASS
+SQLite alembic check: PASS
+SQLite downgrade/re-upgrade: PASS
+PostgreSQL 16 offline migration SQL generation: PASS (not a live DB test)
+E2E seed smoke: PASS
+Live FastAPI HTTP approval -> execute -> readback -> timeline on SQLite: PASS
+Health / Control Center / OpenAPI HTTP smoke: PASS
+Live PostgreSQL 16: NOT EXECUTED
+PostgreSQL concurrency suite: NOT EXECUTED
+Live Chromium -> FastAPI -> PostgreSQL E2E: IMPLEMENTED, NOT EXECUTED LOCALLY (Chromium download blocked; CI pending)
+Human acceptance: NOT ACCEPTED
+Production readiness: NO

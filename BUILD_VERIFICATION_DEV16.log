@@ -1,0 +1,35 @@
+AFS Foundation 1.5 dev.16 — Build Verification
+Date: 2026-11-11
+Baseline: independent copy of AFS_Foundation_1.5_dev.15; dev.15 unchanged.
+
+IMPLEMENTED
+- Fixed Control Center post-disposition refresh: switches to the resulting status filter so the selected case detail and approved-action execution control remain available.
+- Mocked Chromium regression now applies real status-filter semantics and asserts detail retention after approval.
+- Live Chromium runner supports AFS_CHROMIUM_EXECUTABLE.
+- GitHub Actions workflow has explicit contents: read permission and a 30-minute timeout.
+
+EXECUTED / TESTED
+- pytest -q: 141 passed, 12 skipped.
+- Mocked Chromium Control Center workflow using /usr/bin/chromium: PASS.
+- Python compileall: PASS.
+- Python E2E script py_compile: PASS.
+- Node JavaScript syntax check: PASS.
+- Fresh SQLite Alembic upgrade head: PASS.
+- SQLite Alembic check: PASS (No new upgrade operations detected).
+- SQLite downgrade one revision and re-upgrade head: PASS.
+- PostgreSQL offline migration SQL generation: PASS (offline SQL only; no live PostgreSQL connection).
+- GitHub Actions workflow YAML parse and permission assertions: PASS.
+- FastAPI TestClient health, Control Center, OpenAPI and action route smoke: PASS.
+
+NOT EXECUTED / NOT CLAIMED
+- 12 PostgreSQL-only tests skipped locally; no live AFS_TEST_POSTGRES_URL configured.
+- Live PostgreSQL 16 migration/concurrency suite: NOT EXECUTED.
+- Browser-to-live-FastAPI workflow: attempted with system Chromium, but browser navigation to localhost was blocked by environment policy (ERR_BLOCKED_BY_ADMINISTRATOR).
+- GitHub Actions workflow: authored, NOT RUN from this environment.
+- Human acceptance: NOT ACCEPTED.
+- Production readiness: NOT PRODUCTION READY.
+
+PACKAGE
+- Archive: AFS_Foundation_1.5_dev.16.zip
+- ZIP integrity: PASS (unzip -t; no errors detected).
+- SHA-256: recorded in the adjacent `.zip.sha256` sidecar and verified with `sha256sum -c` after packaging.

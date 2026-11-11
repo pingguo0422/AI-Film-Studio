@@ -1,0 +1,38 @@
+{
+  "release": "AFS_Foundation_1.4_dev.1",
+  "execution": "EXECUTED",
+  "database": "SQLite isolated end-to-end database",
+  "worker": {
+    "worker_id": "afs-14-e2e",
+    "mode": "persistent Worker process",
+    "max_tasks": 1,
+    "lease_seconds": 10,
+    "heartbeat_interval_seconds": 2
+  },
+  "ids": {
+    "project_id": "01a1bebf-5078-7654-a117-05eefabe6368",
+    "task_id": "01a1bebf-508a-7580-a41e-d4eaa095976b",
+    "agent_run_id": "01a1bebf-550d-7537-b7be-2a3890e3601a",
+    "skill_run_id": "01a1bebf-550d-7537-b7be-2a3890e3601b",
+    "integration_run_id": "01a1bebf-5518-7213-98b9-ef48f8a9e5d4"
+  },
+  "result": {
+    "task_status": "succeeded",
+    "task_attempt_count": 1,
+    "agent_run_status": "succeeded",
+    "skill_run_status": "succeeded",
+    "integration_run_status": "completed",
+    "events": 52,
+    "coverage_decisions": 52,
+    "immutable_source_snapshots": 104,
+    "source_kind": "SOURCE_ACTING_TASK",
+    "human_approval": false,
+    "optimizer_rerun": false,
+    "model_provider_calls": false
+  },
+  "limitations": [
+    "SQLite only; live PostgreSQL and multi-process SKIP LOCKED behavior not executed.",
+    "Footage-Mode existing 8.1 outputs imported and validated; optimizer was not rerun.",
+    "No external model provider was called."
+  ]
+}

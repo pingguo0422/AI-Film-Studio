@@ -1,0 +1,80 @@
+name: PostgreSQL 16 + live Control Center E2E
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  postgres-and-live-browser-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: afs_test
+          POSTGRES_USER: afs
+          POSTGRES_PASSWORD: afs-ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U afs -d afs_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      AFS_DATABASE_URL: postgresql+psycopg://afs:afs-ci-only-password@localhost:5432/afs_test
+      AFS_TEST_POSTGRES_URL: postgresql+psycopg://afs:afs-ci-only-password@localhost:5432/afs_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install project and test dependencies
+        run: pip install -e '.[test,e2e]'
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+      - name: Apply real PostgreSQL migrations
+        run: alembic upgrade head
+      - name: Verify migration drift
+        run: alembic check
+      - name: Run complete test suite against PostgreSQL
+        run: pytest -q
+      - name: Run deterministic mocked UI regression
+        run: python scripts/run_control_center_browser_e2e.py
+      - name: Seed isolated live browser workflow
+        run: |
+          python scripts/seed_live_browser_e2e.py --env-file "$RUNNER_TEMP/afs-e2e.env"
+          set -a
+          source "$RUNNER_TEMP/afs-e2e.env"
+          set +a
+          echo "::add-mask::$AFS_E2E_API_TOKEN"
+          {
+            echo "AFS_E2E_PROJECT_ID=$AFS_E2E_PROJECT_ID"
+            echo "AFS_E2E_CASE_ID=$AFS_E2E_CASE_ID"
+            echo "AFS_E2E_API_TOKEN=$AFS_E2E_API_TOKEN"
+          } >> "$GITHUB_ENV"
+      - name: Start live FastAPI server
+        run: |
+          uvicorn backend.app.main:app --host 127.0.0.1 --port 8000 > "$RUNNER_TEMP/afs-api.log" 2>&1 &
+          echo $! > "$RUNNER_TEMP/afs-api.pid"
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent http://127.0.0.1:8000/health >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat "$RUNNER_TEMP/afs-api.log"
+          exit 1
+      - name: Run Chromium against live API and PostgreSQL
+        run: python scripts/run_control_center_live_e2e.py
+      - name: Upload API server log on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: afs-live-e2e-api-log
+          path: ${{ runner.temp }}/afs-api.log

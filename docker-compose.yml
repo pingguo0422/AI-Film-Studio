@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${AFS_POSTGRES_DB:-afs_dev}
+      POSTGRES_USER: ${AFS_POSTGRES_USER:-afs}
+      POSTGRES_PASSWORD: ${AFS_POSTGRES_PASSWORD:?Set AFS_POSTGRES_PASSWORD in your environment or .env file}
+    ports:
+      - "${AFS_POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - afs_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${AFS_POSTGRES_USER:-afs} -d ${AFS_POSTGRES_DB:-afs_dev}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+volumes:
+  afs_pgdata:

@@ -1,0 +1,6 @@
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade d9a4f2c8b710 -> c7d4e9a12f60, Bind approved director decisions to one-time executable action snapshots.
+INFO  [alembic.runtime.migration] Running downgrade d9a4f2c8b710 -> c7d4e9a12f60, Bind approved director decisions to one-time executable action snapshots.

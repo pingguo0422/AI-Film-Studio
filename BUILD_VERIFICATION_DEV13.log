@@ -1,0 +1,14 @@
+AFS Foundation 1.5 dev.13 build verification
+
+pytest -q: 141 passed, 12 skipped
+python -m compileall -q backend integrations scripts: PASS
+node --check frontend/control-center/assets/app.js: PASS
+bash -n scripts/run_postgres_integration.sh: PASS
+SQLite fresh alembic upgrade head: PASS
+SQLite alembic check: PASS (No new upgrade operations detected)
+SQLite downgrade -1 then upgrade head: PASS
+PostgreSQL offline upgrade SQL generation: PASS (1208 lines; not live PostgreSQL)
+Live PostgreSQL: NOT EXECUTED (docker/psql/pg_isready unavailable)
+Browser E2E: NOT EXECUTED
+Acceptance: NOT ACCEPTED
+Production readiness: NOT PRODUCTION READY

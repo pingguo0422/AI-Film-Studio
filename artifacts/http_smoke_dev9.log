@@ -1,0 +1,7 @@
+GET /health 200 {'status': 'ok', 'service': 'afs-foundation', 'version': '1.5.0-dev.9'}
+GET /control-center/ 200 text/html; charset=utf-8
+GET /openapi.json 200
+/v1/projects/{project_id}/director/decision-cases ['get']
+/v1/projects/{project_id}/director/decision-cases/{case_id} ['get']
+/v1/projects/{project_id}/director/decision-cases/{case_id}/decision ['post']
+/v1/projects/{project_id}/director/decision-cases/{case_id}/execute ['post']

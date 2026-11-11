@@ -1,0 +1,16 @@
+AFS Foundation 1.4 dev.3 SQLite migration verification
+
+Fresh database: /mnt/data/afs_dev3_verify.sqlite
+Upgrade to head: PASS
+Head revision: 7f31b6c2a904
+Alembic drift check: PASS (No new upgrade operations detected.)
+Downgrade 7f31b6c2a904 -> 4d9c2a7e1f30: PASS
+Upgrade 4d9c2a7e1f30 -> 7f31b6c2a904: PASS
+worker_instances.instance_token present: PASS
+
+PostgreSQL offline SQL generation:
+artifacts/postgresql_16_upgrade_head_1_4_dev3.generated.sql
+51,826 bytes; includes ADD COLUMN instance_token VARCHAR(36) DEFAULT 'legacy' NOT NULL
+and removes the temporary default.
+
+Live PostgreSQL execution: NOT RUN (no PostgreSQL/Docker/Podman runtime available).

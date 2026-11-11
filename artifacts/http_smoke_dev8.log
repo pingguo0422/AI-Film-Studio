@@ -1,0 +1,4 @@
+health: PASS {'status': 'ok', 'service': 'afs-foundation', 'version': '1.5.0-dev.8'}
+control-center html/js/css: PASS
+CSP header: PASS
+activity timeline OpenAPI route: PASS

@@ -1,0 +1,42 @@
+AFS Foundation 1.5 dev.6 — Build Verification
+Date: 2026-11-11
+
+Source compilation:
+  python -m compileall -q backend integrations scripts
+  PASS
+
+Automated tests:
+  pytest -q
+  125 passed, 10 skipped
+  Skips: PostgreSQL-only tests requiring AFS_TEST_POSTGRES_URL.
+
+SQLite database verification:
+  Fresh Alembic upgrade to head: PASS
+  Alembic drift check: PASS (No new upgrade operations detected)
+  Downgrade one revision: PASS
+  Re-upgrade to head: PASS
+  Legacy project-member principal backfill and principal FK test: PASS
+
+PostgreSQL verification:
+  Alembic PostgreSQL 16 offline SQL generation: PASS
+  Generated artifact: artifacts/postgresql_upgrade_head_dev6.generated.sql
+  Live PostgreSQL migration/concurrency test: NOT RUN
+
+API smoke:
+  GET /health: 200; version 1.5.0-dev.6
+  OpenAPI: all five identity/project access paths registered
+  PASS
+
+Provisioning CLI smoke:
+  Operator CLI created a service principal and opaque API token against a migrated SQLite DB.
+  Issued token authenticated; persisted value was a digest, not the raw token.
+  Raw credential redacted from verification output.
+  PASS
+
+Security boundaries not tested or not implemented:
+  OIDC/SAML, interactive login, MFA, PostgreSQL RLS, penetration testing,
+  live PostgreSQL concurrency, production deployment and secret-manager integration.
+
+Release disposition:
+  IMPLEMENTED / EXECUTED / TESTED (local SQLite)
+  NOT ACCEPTED / NOT PRODUCTION READY

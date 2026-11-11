@@ -1,0 +1,74 @@
+AFS Foundation 1.4 dev.4 SQLite migration verification
+Database: /tmp/afs_14_dev4_final.db
+$ alembic upgrade head
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001_core, Core projects, canonical entities, immutable versions and approval governance.
+INFO  [alembic.runtime.migration] Running upgrade  -> 0001_core, Core projects, canonical entities, immutable versions and approval governance.
+INFO  [alembic.runtime.migration] Running upgrade 0001_core -> 0002_dam, AFS-DAM objects, asset versions, provenance, processing jobs and QC.
+INFO  [alembic.runtime.migration] Running upgrade 0001_core -> 0002_dam, AFS-DAM objects, asset versions, provenance, processing jobs and QC.
+INFO  [alembic.runtime.migration] Running upgrade 0002_dam -> b626346c790e, agent runtime and orchestration
+INFO  [alembic.runtime.migration] Running upgrade 0002_dam -> b626346c790e, agent runtime and orchestration
+INFO  [alembic.runtime.migration] Running upgrade b626346c790e -> 8c58a10612ac, footage mode integration adapter
+INFO  [alembic.runtime.migration] Running upgrade b626346c790e -> 8c58a10612ac, footage mode integration adapter
+INFO  [alembic.runtime.migration] Running upgrade 8c58a10612ac -> 13a9c2e4f601, Agent runtime task leases, retries, cancellation and idempotent creation.
+INFO  [alembic.runtime.migration] Running upgrade 8c58a10612ac -> 13a9c2e4f601, Agent runtime task leases, retries, cancellation and idempotent creation.
+INFO  [alembic.runtime.migration] Running upgrade 13a9c2e4f601 -> 4d9c2a7e1f30, Worker registry, durable outbox claims/retries and task dead letters.
+INFO  [alembic.runtime.migration] Running upgrade 13a9c2e4f601 -> 4d9c2a7e1f30, Worker registry, durable outbox claims/retries and task dead letters.
+INFO  [alembic.runtime.migration] Running upgrade 4d9c2a7e1f30 -> 7f31b6c2a904, Fence stale worker process generations and support concurrent inbox inserts.
+INFO  [alembic.runtime.migration] Running upgrade 4d9c2a7e1f30 -> 7f31b6c2a904, Fence stale worker process generations and support concurrent inbox inserts.
+INFO  [alembic.runtime.migration] Running upgrade 7f31b6c2a904 -> 2c84a1d9e650, Persist orchestration step identity, task linkage and execution outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 7f31b6c2a904 -> 2c84a1d9e650, Persist orchestration step identity, task linkage and execution outcomes.
+$ alembic check
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.schemas
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.schemas
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.tables
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.tables
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.types
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.types
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.constraints
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.constraints
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.defaults
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.defaults
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.comments
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.comments
+No new upgrade operations detected.
+$ alembic downgrade 7f31b6c2a904
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running downgrade 2c84a1d9e650 -> 7f31b6c2a904, Persist orchestration step identity, task linkage and execution outcomes.
+INFO  [alembic.runtime.migration] Running downgrade 2c84a1d9e650 -> 7f31b6c2a904, Persist orchestration step identity, task linkage and execution outcomes.
+$ alembic upgrade head
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade 7f31b6c2a904 -> 2c84a1d9e650, Persist orchestration step identity, task linkage and execution outcomes.
+INFO  [alembic.runtime.migration] Running upgrade 7f31b6c2a904 -> 2c84a1d9e650, Persist orchestration step identity, task linkage and execution outcomes.
+$ alembic check
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.schemas
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.schemas
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.tables
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.tables
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.types
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.types
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.constraints
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.constraints
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.defaults
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.defaults
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.comments
+INFO  [alembic.runtime.plugins] setting up autogenerate plugin alembic.autogenerate.comments
+No new upgrade operations detected.
+RESULT: PASS

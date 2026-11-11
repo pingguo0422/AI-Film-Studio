@@ -1,0 +1,38 @@
+{
+  "release": "AFS_Foundation_1.3_dev.1",
+  "execution": "EXECUTED",
+  "database": "SQLite isolated integration test database",
+  "workflow": [
+    "registered AI_EXECUTIVE_DIRECTOR agent version",
+    "registered FOOTAGE_MODE_81_VALIDATION skill version",
+    "bound exact agent version to exact skill version",
+    "created idempotent project task",
+    "claimed task with worker lease",
+    "created AgentRun and SkillRun snapshots",
+    "executed Footage-Mode source validation/import adapter",
+    "persisted IntegrationRun, 104 immutable source snapshots and 52 proposed coverage decisions",
+    "completed task and run lineage"
+  ],
+  "result": {
+    "package_version": "2.2.0-recovered-b.1",
+    "package_release_status": "provisional_reconstruction",
+    "source_kind": "SOURCE_ACTING_TASK",
+    "events": 52,
+    "coverage_decisions": 52,
+    "integration_object_snapshots": 104,
+    "canonical_links_status": "incomplete",
+    "human_approval": false,
+    "optimizer_rerun": false,
+    "model_provider_calls": false,
+    "task_status": "succeeded",
+    "task_attempt_count": 1,
+    "agent_run_status": "succeeded",
+    "skill_run_status": "succeeded"
+  },
+  "limitations": [
+    "This run imports and validates existing Footage-Mode 8.1 outputs; it does not rerun the optimizer.",
+    "Canonical entity links remain incomplete until explicit AFS entity mappings are created.",
+    "All imported coverage decisions remain proposals and require human review.",
+    "PostgreSQL server execution was not available in this environment."
+  ]
+}
