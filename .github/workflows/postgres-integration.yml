@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   postgres-and-live-browser-e2e:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 30
     services:
       postgres:
@@ -36,8 +36,10 @@ jobs:
           cache: pip
       - name: Install project and test dependencies
         run: pip install -e '.[test,e2e]'
-      - name: Install Chromium
-        run: python -m playwright install --with-deps chromium
+      - name: Install Chromium browser binary
+        run: python -m playwright install chromium
+      - name: Verify Chromium can launch
+        run: python scripts/check_chromium_launch.py
       - name: Apply real PostgreSQL migrations
         run: alembic upgrade head
       - name: Verify migration drift

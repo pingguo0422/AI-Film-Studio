@@ -5,7 +5,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from backend.app.api.routes import router as identity_router
 
-app = FastAPI(title="AI Film Studio Foundation API", version="1.5.0-dev.17")
+app = FastAPI(title="AI Film Studio Foundation API", version="1.5.0-dev.18")
 app.include_router(identity_router)
 
 
@@ -31,4 +31,4 @@ if frontend_dir.is_dir():
 
 @app.get("/health")
 def health():
-    return {"status": "ok", "service": "afs-foundation", "version": "1.5.0-dev.17"}
+    return {"status": "ok", "service": "afs-foundation", "version": "1.5.0-dev.18"}

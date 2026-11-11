@@ -1,3 +1,11 @@
+## 1.5.0.dev18
+
+- Pin the PostgreSQL/browser GitHub Actions job to `ubuntu-24.04` for a stable runner image.
+- Install the Playwright-managed Chromium binary without `--with-deps`, avoiding an unnecessary apt package-index/DNS dependency in the browser-install step.
+- Add an explicit headless Chromium launch and DOM smoke check before database and browser integration tests.
+- Keep PostgreSQL 16 migrations, migration drift checks, the full PostgreSQL test suite, mocked UI regression, and live browser-to-API-to-PostgreSQL E2E in the workflow.
+- Align package and FastAPI application versions with `1.5.0.dev18`.
+
 ## 1.5.0.dev17
 
 - Fix setuptools editable-install failure by explicitly configuring package discovery for `backend` and `integrations`.
