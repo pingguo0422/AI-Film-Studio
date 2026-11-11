@@ -1,0 +1,41 @@
+AFS Foundation 1.5 dev.17 local verification
+============================================
+[1] Editable package build with no build isolation / no dependency resolution
+WARNING: The directory '/home/oai/.cache/pip' or its parent directory is not owned or is not writable by the current user. The cache has been disabled. Check the permissions and owner of that directory. If executing pip with sudo, you should use sudo's -H flag.
+Obtaining file:///mnt/data/AFS_Foundation_1.5_dev.17
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: afs-foundation
+  Building editable for afs-foundation (pyproject.toml): started
+  Building editable for afs-foundation (pyproject.toml): finished with status 'done'
+  Created wheel for afs-foundation: filename=afs_foundation-1.5.0.dev17-0.editable-py3-none-any.whl size=3104 sha256=6715a99515836e3d4b7540812cb040933cfac3e3e5fc14b397c45ba6518667ed
+  Stored in directory: /tmp/pip-ephem-wheel-cache-9ozpr983/wheels/b5/65/d5/8347c22bad652bf573f94c270501b45c7190c674fc586d7b9f
+Successfully built afs-foundation
+Installing collected packages: afs-foundation
+  Attempting uninstall: afs-foundation
+    Found existing installation: afs-foundation 1.5.0.dev17
+    Uninstalling afs-foundation-1.5.0.dev17:
+      Successfully uninstalled afs-foundation-1.5.0.dev17
+Successfully installed afs-foundation-1.5.0.dev17
+[PASS] editable package build/install
+[2] Distribution metadata and package imports
+version: 1.5.0.dev17
+extras: ['e2e', 'test']
+top-level packages: ['backend', 'integrations']
+FastAPI app version: 1.5.0-dev.17
+[PASS] metadata/import checks
+[3] Python compileall
+[PASS] compileall
+[4] JavaScript syntax
+[5] Full pytest suite
+........................................................................ [ 47%]
+...............................................ssssssssssss............. [ 94%]
+.........                                                                [100%]
+141 passed, 12 skipped in 11.62s
+[6] Wheel build / contents check
+PASS: pip wheel . --no-deps --no-build-isolation
+PASS: wheel includes backend and integrations packages; excludes tests, frontend, artifacts.
+[7] Full dependency-resolving install attempt
+Editable metadata preparation passed. Dependency resolution then stopped because this environment could not resolve the package index for psycopg. GitHub Actions must execute the full build-isolated install with network access.

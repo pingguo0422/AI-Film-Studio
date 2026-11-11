@@ -1,3 +1,10 @@
+## 1.5.0.dev17
+
+- Fix setuptools editable-install failure by explicitly configuring package discovery for `backend` and `integrations`.
+- Exclude non-package project directories (`tests`, `frontend`, `artifacts`, and `source-baseline`) from Python package discovery.
+- Align FastAPI application version with package version `1.5.0.dev17`.
+- Validate editable build metadata and package imports locally; PostgreSQL and live browser acceptance remain pending GitHub Actions.
+
 ## 1.5.0.dev16
 
 - Keep the reviewed decision case visible after a disposition by switching the inbox filter to the resulting status; prevents the approved-action execution control from disappearing after approval.
