@@ -94,6 +94,10 @@ def main() -> int:
         payload={"task_type":"script_revision","title":"E2E approved scene revision","input_snapshot":{"scene":"8.1","source":"browser-e2e"}}
         page.locator("#authorized-action-payload").fill(json.dumps(payload,ensure_ascii=False,indent=2))
         page.get_by_role("button",name="批准",exact=True).click()
+        page.wait_for_function(
+            "() => document.querySelector('#status-filter')?.value === 'approved'",
+            timeout=10000,
+        )
         assert page.locator("#status-filter").input_value() == "approved", "approved case should remain visible in its outcome filter"
         assert "CREATE_SCRIPT_REVISION_TASK" in page.locator("#detail-panel").inner_text(), "approved case detail should remain selected"
         execute_button=page.get_by_role("button",name="确认执行已批准动作")
@@ -106,7 +110,15 @@ def main() -> int:
             raise
         execute_button.click()
         result=page.locator("#execution-result")
-        result.wait_for(state="visible",timeout=10000)
+        page.wait_for_function(
+            """() => {
+                const output = document.querySelector('#execution-result');
+                const error = document.querySelector('#workspace-error');
+                return (output && output.textContent.trim().length > 0)
+                    || (error && error.textContent.trim().length > 0);
+            }""",
+            timeout=10000,
+        )
         result_text=result.inner_text()
         assert '"status": "succeeded"' in result_text, result_text
         assert '"task_id": "task-e2e-001"' in result_text, result_text
