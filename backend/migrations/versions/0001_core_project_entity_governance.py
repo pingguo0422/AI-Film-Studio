@@ -18,9 +18,6 @@ def upgrade():
     json_type = sa.JSON()
     member_role = sa.Enum("owner", "producer", "director", "department_lead", "collaborator", "viewer", name="member_role")
     approval_status = sa.Enum("pending", "approved", "rejected", "changes_requested", "withdrawn", name="approval_status")
-    if bind.dialect.name == "postgresql":
-        member_role.create(bind, checkfirst=True)
-        approval_status.create(bind, checkfirst=True)
 
     op.create_table("projects",
         sa.Column("id", uuid_type, primary_key=True), sa.Column("code", sa.String(32), nullable=False, unique=True),

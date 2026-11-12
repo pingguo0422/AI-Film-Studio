@@ -24,7 +24,7 @@ def pg_session():
 
 
 def _base_records(db):
-    project = Project(id=uuid7(), code=f"PG_{uuid7().hex[:10]}", name="PG contract test")
+    project = Project(id=uuid7(), code=f"PG_{uuid7().hex[-10:]}", name="PG contract test")
     db.add(project)
     db.flush()
     source = IntegrationSource(
@@ -82,7 +82,7 @@ def test_postgres_integration_run_input_snapshot_is_immutable(pg_session):
 
 def test_postgres_composite_fk_rejects_cross_project_run_snapshot(pg_session):
     project, _source, run, _snapshot = _base_records(pg_session)
-    other = Project(id=uuid7(), code=f"PG_{uuid7().hex[:10]}", name="Other project")
+    other = Project(id=uuid7(), code=f"PG_{uuid7().hex[-10:]}", name="Other project")
     pg_session.add(other)
     pg_session.flush()
     invalid = IntegrationObjectSnapshot(
@@ -99,12 +99,12 @@ def test_postgres_composite_fk_rejects_cross_project_run_snapshot(pg_session):
 def test_postgres_task_claim_lease_is_single_owner_and_persisted(pg_session):
     from backend.app.models import Task
     from backend.app.services.task_service import create_task, claim_next_task, LeaseConflict, complete_task
-    project = Project(id=uuid7(), code=f"PG_{uuid7().hex[:10]}", name="Runtime lease")
+    project = Project(id=uuid7(), code=f"PG_{uuid7().hex[-10:]}", name="Runtime lease")
     pg_session.add(project); pg_session.flush()
     task = create_task(pg_session, project_id=project.id, task_type="PG_LEASE", title="Lease", input_snapshot={"x": 1})
-    first = claim_next_task(pg_session, worker_id="pg-worker-a", lease_seconds=60)
+    first = claim_next_task(pg_session, worker_id="pg-worker-a", lease_seconds=60, project_id=project.id, task_type="PG_LEASE")
     assert first is not None and first[0].id == task.id
-    second = claim_next_task(pg_session, worker_id="pg-worker-b", lease_seconds=60)
+    second = claim_next_task(pg_session, worker_id="pg-worker-b", lease_seconds=60, project_id=project.id, task_type="PG_LEASE")
     assert second is None
     claimed, token = first
     assert claimed.lease_owner == "pg-worker-a" and claimed.lease_token == token
@@ -115,7 +115,7 @@ def test_postgres_task_claim_lease_is_single_owner_and_persisted(pg_session):
 
 def test_postgres_task_idempotency_unique_constraint(pg_session):
     from backend.app.services.task_service import create_task
-    project = Project(id=uuid7(), code=f"PG_{uuid7().hex[:10]}", name="Runtime idempotency")
+    project = Project(id=uuid7(), code=f"PG_{uuid7().hex[-10:]}", name="Runtime idempotency")
     pg_session.add(project); pg_session.flush()
     first = create_task(pg_session, project_id=project.id, task_type="PG_IDEMPOTENT", title="One",
                         input_snapshot={"source": "8.1"}, idempotency_key="pg-idem-fixed")
@@ -130,7 +130,7 @@ def test_postgres_concurrent_task_claims_have_distinct_single_owners(pg_session)
     from threading import Barrier
     from sqlalchemy.orm import sessionmaker
     from backend.app.services.task_service import create_task, claim_next_task
-    project = Project(id=uuid7(), code=f"PG_{uuid7().hex[:10]}", name="Concurrent claims")
+    project = Project(id=uuid7(), code=f"PG_{uuid7().hex[-10:]}", name="Concurrent claims")
     pg_session.add(project)
     pg_session.flush()
     tasks = [create_task(pg_session, project_id=project.id, task_type="PG_CONCURRENT", title=f"Task {i}", input_snapshot={"i": i}) for i in range(8)]
@@ -141,7 +141,7 @@ def test_postgres_concurrent_task_claims_have_distinct_single_owners(pg_session)
     def claim(worker_no):
         barrier.wait(timeout=10)
         with factory() as db:
-            result = claim_next_task(db, worker_id=f"pg-worker-{worker_no}", task_type="PG_CONCURRENT")
+            result = claim_next_task(db, worker_id=f"pg-worker-{worker_no}", project_id=project.id, task_type="PG_CONCURRENT")
             db.commit()
             return result[0].id if result else None
 
@@ -183,7 +183,7 @@ def test_postgres_concurrent_inbox_delivery_runs_handler_once(pg_session):
 
 def test_postgres_worker_process_generation_fences_previous_instance(pg_session):
     from backend.app.services.worker_registry import register_worker, heartbeat_worker, stop_worker
-    first = register_worker(pg_session, worker_id=f"pg-reused-{uuid7().hex[:8]}", capabilities=["A"], process_id=100)
+    first = register_worker(pg_session, worker_id=f"pg-reused-{uuid7().hex[-8:]}", capabilities=["A"], process_id=100)
     worker_id = first.worker_id
     first_token = first.instance_token
     pg_session.commit()
@@ -206,9 +206,9 @@ def test_postgres_orchestration_plan_requires_human_approval_and_materializes_on
     from backend.app.services.task_service import create_task
     from backend.app.services.orchestrator import persist_plan, decide_plan_approval, materialize_plan_tasks
 
-    project = Project(id=uuid7(), code=f"PG_PLAN_{uuid7().hex[:8]}", name="Orchestration approval")
-    agent = Agent(code=f"PG_AGENT_{uuid7().hex[:8]}", display_name="PG Specialist")
-    skill = Skill(code=f"PG_SKILL_{uuid7().hex[:8]}", display_name="PG Capability")
+    project = Project(id=uuid7(), code=f"PG_PLAN_{uuid7().hex[-8:]}", name="Orchestration approval")
+    agent = Agent(code=f"PG_AGENT_{uuid7().hex[-8:]}", display_name="PG Specialist")
+    skill = Skill(code=f"PG_SKILL_{uuid7().hex[-8:]}", display_name="PG Capability")
     pg_session.add_all([project, agent, skill]); pg_session.flush()
     av = AgentVersion(agent_id=agent.id, version_number=1, definition_snapshot={"role": "specialist"},
                       definition_sha256="d" * 64)
@@ -257,9 +257,9 @@ def test_postgres_agent_handoff_idempotency_under_concurrency(pg_session):
     from backend.app.models import Agent
     from backend.app.services.agent_collaboration import send_agent_message
 
-    project = Project(id=uuid7(), code=f"PG_MSG_{uuid7().hex[:8]}", name="Agent collaboration")
-    sender = Agent(code=f"PG_SENDER_{uuid7().hex[:8]}", display_name="Sender")
-    receiver = Agent(code=f"PG_RECEIVER_{uuid7().hex[:8]}", display_name="Receiver")
+    project = Project(id=uuid7(), code=f"PG_MSG_{uuid7().hex[-8:]}", name="Agent collaboration")
+    sender = Agent(code=f"PG_SENDER_{uuid7().hex[-8:]}", display_name="Sender")
+    receiver = Agent(code=f"PG_RECEIVER_{uuid7().hex[-8:]}", display_name="Receiver")
     pg_session.add_all([project, sender, receiver]); pg_session.commit()
     factory = sessionmaker(pg_session.get_bind(), expire_on_commit=False)
     barrier = Barrier(8)
@@ -288,7 +288,7 @@ def test_postgres_concurrent_director_action_executes_once(pg_session):
     from backend.app.models import ActionExecution, AuditLog, DirectorDecisionCase, Task, utcnow
     from backend.app.services.action_execution import execute_approved_action
 
-    project = Project(id=uuid7(), code=f"PG_ACTION_{uuid7().hex[:8]}", name="Concurrent director action")
+    project = Project(id=uuid7(), code=f"PG_ACTION_{uuid7().hex[-8:]}", name="Concurrent director action")
     actor = Principal(principal_kind="human", display_name="PG Director")
     pg_session.add_all([project, actor])
     pg_session.flush()
@@ -342,7 +342,7 @@ def test_postgres_concurrent_director_action_different_keys_still_executes_once(
     from backend.app.models import ActionExecution, DirectorDecisionCase, Task, utcnow
     from backend.app.services.action_execution import execute_approved_action, ActionExecutionError
 
-    project = Project(id=uuid7(), code=f"PG_ACTION_KEYS_{uuid7().hex[:8]}", name="Concurrent director action keys")
+    project = Project(id=uuid7(), code=f"PG_ACTION_KEYS_{uuid7().hex[-8:]}", name="Concurrent director action keys")
     actor = Principal(principal_kind="human", display_name="PG Director")
     pg_session.add_all([project, actor]); pg_session.flush()
     pg_session.add(ProjectMember(project_id=project.id, principal_id=actor.id, role=MemberRole.owner, is_active=True))

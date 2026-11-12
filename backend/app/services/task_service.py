@@ -124,7 +124,7 @@ def claim_next_task(db: Session, *, worker_id: str, lease_seconds: int = 120, no
     if task_id is not None: conditions.append(Task.id == task_id)
     if project_id is not None: conditions.append(Task.project_id == project_id)
     if task_type is not None: conditions.append(Task.task_type == task_type)
-    candidates = db.scalars(select(Task).where(*conditions).order_by(Task.priority.asc(), Task.created_at.asc()).with_for_update(skip_locked=True)).all()
+    candidates = db.scalars(select(Task).where(*conditions).order_by(Task.priority.asc(), Task.created_at.asc()).with_for_update(skip_locked=True).limit(1)).all()
     for task in candidates:
         token = str(uuid4())
         result = db.execute(update(Task).where(Task.id == task.id, Task.status == task.status).values(

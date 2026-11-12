@@ -5,3 +5,6 @@ __pycache__/
 *.py[cod]
 *.db
 .DS_Store
+
+# Python package build metadata
+*.egg-info/
